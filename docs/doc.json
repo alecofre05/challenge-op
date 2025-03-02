@@ -1,0 +1,125 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Documentation",
+    "description": "API documentation for the Dragon Ball API integration",
+    "version": "1.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/planets/{id}": {
+      "get": {
+        "summary": "Get planet report",
+        "description": "Fetches the report for a specific planet by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the planet to fetch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "planetId": { "type": "integer" },
+                "name": { "type": "string" },
+                "affiliationReport": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "affiliation": { "type": "string" },
+                      "characters": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "integer" },
+                            "name": { "type": "string" },
+                            "ki": { "type": "string" },
+                            "race": { "type": "string" },
+                            "image": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid planet ID provided"
+          },
+          "500": {
+            "description": "Error fetching planet report"
+          }
+        }
+      }
+    },
+    "/api/characters/": {
+      "get": {
+        "summary": "Get characters",
+        "description": "Fetches characters with optional filters",
+        "parameters": [
+          {
+            "name": "race",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Character race"
+          },
+          {
+            "name": "affiliation",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Character affiliation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "characters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "name": { "type": "string" },
+                      "ki": { "type": "string" },
+                      "maxKi": { "type": "string" },
+                      "race": { "type": "string" },
+                      "gender": { "type": "string" },
+                      "description": { "type": "string" },
+                      "image": { "type": "string" },
+                      "affiliation": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid filters provided"
+          },
+          "500": {
+            "description": "Error fetching characters"
+          }
+        }
+      }
+    }
+  }
+}
