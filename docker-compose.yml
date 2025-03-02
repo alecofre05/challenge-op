@@ -1,0 +1,44 @@
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - PORT=${PORT}
+      - DB_NAME=${DB_NAME}
+      - HOST_DB=${HOST_DB}
+      - PASSWORD_DB=${PASSWORD_DB} 
+      - USER_DB=${USER_DB}
+      - PORT_DB=${PORT_DB}
+    depends_on:
+      - mongodb
+    networks:
+      - node-network
+
+  mongodb:
+      container_name: testMongoDB
+      image: mongo
+      restart: always
+      command:
+        - --storageEngine
+        - wiredTiger
+        - --auth
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+        - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      ports:
+        - "27017:27017"
+      volumes:
+        - dbdata1:/data/db
+        - ./scripts/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      env_file: .env
+      networks:
+        - node-network
+
+volumes:
+  dbdata1:
+    driver: local
+
+networks:
+  node-network:
+    driver: bridge
