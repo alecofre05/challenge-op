@@ -1,61 +1,68 @@
-API
+# Dragon Ball Microservice - Node.js & MongoDB
 
-Architecture
+Este microservicio en **Node.js** con **Express.js** permite consultar información sobre personajes y planetas del universo **Dragon Ball**, consumiendo la API pública **Dragon Ball API**. Además, implementa persistencia en **MongoDB** para almacenar reportes de planetas y optimizar futuras consultas.
 
-Se utilizó arquitectura hexagonal para la organización del código y la separación de responsabilidades dentro del proyecto.
 
-Technical decision
+## Características
+Se utilizó **arquitectura hexagonal** para la organización del código y la separación de responsabilidades dentro del proyecto.
 
-En el endpoint /api/characters, se implementó un filtrado para excluir los personajes que tengan una fecha en el campo deletedAt.Esto permite evitar mostrar elementos marcados como eliminados lógicamente en la base de datos. 
 
-Start
+## Decisión técnica
+En el endpoint **`/api/characters`**, se implementó un filtrado para excluir los personajes que tengan una fecha en el campo **`deletedAt`**. Esto evita mostrar elementos eliminados lógicamente en la base de datos de la API de Dragon Ball.  
 
-Clonar el repositorio:
 
-git clone <URL_DEL_REPOSITORIO>
+## Tecnologías utilizadas
+- **Node.js**  
+- **Express.js**  
+- **MongoDB**  
+- **Mongoose**  
 
-Acceder a la carpeta del proyecto:
+## Instalación
+1. Clonar el repositorio: 
 
-cd <NOMBRE_DEL_PROYECTO>
+   ```bash
+   git clone https://github.com/alecofre05/challenge-op.git
+   ```
+2. Acceder a la carpeta del proyecto:
+   ```bash
+   cd challenge-op
+   ```
+3. Configurar el archivo .env con las siguientes variables de entorno:
+   ```bash
+   PORT=3000 
+   DB_NAME=dbchallenge 
+   USER_DB=api 
+   PASSWORD_DB=api1234 
+   MONGO_INITDB_ROOT_USERNAME=admin 
+   MONGO_INITDB_ROOT_PASSWORD=admin123 
+   HOST_DB=mongodb PORT_DB=27017 
+   DRAGONBALL_API_URL=https://dragonball-api.com/api
+   ```
+4. Levantar el proyecto con Docker:
+   ```bash
+   docker-compose up
+   ```
 
-Configurar el archivo .env con las siguientes variables de entorno:
-
-PORT=3000
-DB_NAME=dbchallenge
-USER_DB=api
-PASSWORD_DB=api1234
-MONGO_INITDB_ROOT_USERNAME=admin
-MONGO_INITDB_ROOT_PASSWORD=admin123
-HOST_DB=mongodb
-PORT_DB=27017
-DRAGONBALL_API_URL=https://dragonball-api.com/api
-
-Levantar el proyecto con Docker:
-
-docker-compose up
-
-Test
+## Test
 
 Para ejecutar las pruebas, utilizar el siguiente comando en la consola:
-
+```bash
 npm test
+```
 
-DB
+## Inicialización de la Base de Datos en Docker
 
-Scripts
+Se ha generado una carpeta que contiene el archivo `mongo-init.js`, el cual se encarga de inicializar la base de datos y crear las colecciones necesarias para el correcto funcionamiento de los endpoints.
 
-Se incluyen los scripts necesarios para la inicialización de la base de datos y la creación de las colecciones necesarias.
+### Funcionamiento:
+- Al iniciar el contenedor de MongoDB con Docker, el script mongo-init.js se ejecuta automáticamente.
+- Se crean la base de datos y la colección necesaria.
+- Los endpoints pueden utilizar la base de datos sin necesidad de configuraciones manuales adicionales.
 
-Docker
+## Documentación de Endpoints
 
-How to run
+Para la documentación de los endpoints, se utilizó **Swagger**
+### Acceso a la Documentación:
+Para ver la documentación ingresar a la siguiente URL después de levantar el servidor:
 
-Para ejecutar el proyecto utilizando Docker, seguir los siguientes pasos:
-
-Asegurarse de tener Docker y Docker Compose instalados.
-
-Posicionarse en la carpeta del proyecto y ejecutar:
-
-docker-compose up
-
-Esto levantará la base de datos y la API dentro de contenedores configurados en el docker-compose.yml.
+🔗 [Swagger UI - Documentación de la API](http://localhost:3000/doc)
