@@ -1,5 +1,6 @@
 const axios = require('axios');
 const dotenv = require('dotenv');
+const NotFoundError = require('../../domain/errors/Errors');
 dotenv.config();
 
 class DragonBallAPI {
@@ -35,10 +36,23 @@ class DragonBallAPI {
             console.debug('Debug: Preparing to fetch planet with id:', planetId);
 
             const response = await this.client.get(`/planets/${planetId}`);
+
             console.info('Info: Successfully fetched planet data for planetId:', planetId);
             return response.data;
         } catch (error) {
-            console.error('Error fetching planet from Dragon Ball API:', error.message);
+            console.error('Error fetching planet from Dragon Ball API:', error);
+            if (error.response) {
+                const { status } = error.response;
+
+                switch (status) {
+                    case 400:
+                        // API responds 400 when the planet is not found
+                        throw new NotFoundError('Planet not found');
+                    case 404:
+                        throw new NotFoundError('Planet not found');
+                }
+            }
+
             throw error;
         }
     }

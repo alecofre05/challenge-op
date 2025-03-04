@@ -28,8 +28,12 @@ class PlanetRepositoryImplementation extends PlanetRepository {
     }
 
     async fetchFromAPI(planetId) {
-        console.debug('Debug: Requesting a planet from the API');
-        return await this.apiClient.getPlanet(planetId);
+        try {
+            console.debug('Debug: Requesting a planet from the API');
+            return await this.apiClient.getPlanet(planetId);
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

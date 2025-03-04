@@ -10,9 +10,6 @@ class PlanetService {
 
         if (!planetReport) {
             const planetData = await this.planetRepository.fetchFromAPI(planetId);
-            if (!planetData) {
-                throw new Error(`No information found for planet with ID: ${planetId}`);
-            }
 
             planetReport = new PlanetReport({
                 planetId: planetData.id,

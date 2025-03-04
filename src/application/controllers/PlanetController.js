@@ -1,4 +1,5 @@
 const PlanetReportDTO = require('../dtos/PlanetReportDTO');
+const NotFoundError = require('../../domain/errors/Errors');
 
 class PlanetController {
     constructor(planetService) {
@@ -30,6 +31,10 @@ class PlanetController {
 
         } catch (error) {
             console.error('Error fetching planet report:', error.message);
+
+            if (error instanceof NotFoundError) {
+                return res.status(404).json({ message: error.message });
+            }
 
             res.status(500).json({
                 message: 'Error fetching planet report',
