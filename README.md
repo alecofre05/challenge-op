@@ -4,12 +4,12 @@ Este microservicio en **Node.js** con **Express.js** permite consultar informaci
 
 
 ## Características
-- Se utilizó **arquitectura hexagonal** para la organización del código y la separación de responsabilidades dentro del proyecto.
-- Se decidió utilizar el método GET para el reporte de planetas porque, aunque la solicitud puede generar y almacenar un nuevo reporte en la base de datos, desde la perspectiva del usuario, solo está consultando información, haciendo que la creación del reporte sea un efecto colateral transparente.
+Se utilizó **arquitectura hexagonal** para la organización del código y la separación de responsabilidades dentro del proyecto.
 
 
 ## Decisión técnica
-En el endpoint **`/api/characters`**, se implementó un filtrado para excluir los personajes que tengan una fecha en el campo **`deletedAt`**. Esto evita mostrar elementos eliminados lógicamente en la base de datos de la API de Dragon Ball.  
+- En el endpoint **`/api/characters`**, se implementó un filtrado para excluir los personajes que tengan una fecha en el campo **`deletedAt`**. Esto evita mostrar elementos eliminados lógicamente en la base de datos de la API de Dragon Ball.
+- Se decidió utilizar el método GET para el reporte de planetas porque, aunque la solicitud puede generar y almacenar un nuevo reporte en la base de datos, desde la perspectiva del usuario, solo está consultando información, haciendo que la creación del reporte sea un efecto colateral transparente.
 
 
 ## Tecnologías utilizadas
